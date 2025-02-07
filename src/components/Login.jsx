@@ -1,22 +1,44 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
+    setError('');
+    setIsLoading(true);
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Mock validation
+      if (email === 'test@example.com' && password === 'password123') {
+        navigate('/home');
+      } else {
+        setError('Invalid email or password');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Sign in to Coinbase</h1>
+        <h1>Sign in to Glass Box</h1>
         
         <form onSubmit={handleSubmit} role="form">
+          {error && <div className="error-message submit-error">{error}</div>}
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input
@@ -49,8 +71,8 @@ const Login = () => {
             </div>
           </div>
 
-          <button type="submit" className="login-button">
-            Sign In
+          <button type="submit" className="login-button" disabled={isLoading}>
+            {isLoading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 
@@ -58,6 +80,12 @@ const Login = () => {
           <a href="/forgot-password">Forgot password?</a>
           <span className="divider">•</span>
           <a href="/signup">Don't have an account?</a>
+        </div>
+      </div>
+      <div className="orbit-container">
+        <div className="sun"></div>
+        <div className="earth-orbit">
+          <div className="earth"></div>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import Login from './Login';
 describe('Login Component', () => {
   test('renders login form', () => {
     render(<Login />);
-    expect(screen.getByText('Sign in to Coinbase')).toBeInTheDocument();
+    expect(screen.getByText('Sign in to Glass Box')).toBeInTheDocument();
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Sign In' })).toBeInTheDocument();

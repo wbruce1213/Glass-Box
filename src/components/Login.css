@@ -4,25 +4,65 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: transparent;
-  background-image: url('https://images.unsplash.com/photo-1615484477778-ca3b77940c25');
-  background-size: cover;
-  background-position: center;
+  background-color: #FFFDD0; /* Cream color */
   position: relative;
 }
 
+/* Remove the previous background image and blur styles */
 .login-container::before {
-  content: '';
+  display: none;
+}
+
+/* Add orbit animation container */
+.orbit-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('https://images.unsplash.com/photo-1615484477778-ca3b77940c25');
-  background-size: cover;
-  background-position: center;
-  filter: blur(10px);
+  right: 0px;  /* Changed from 240px to 0px to move it further right */
+  width: 600px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 0;
+}
+
+/* Update sun size */
+.sun {
+  width: 120px;  /* Increased from 40px */
+  height: 120px;  /* Increased from 40px */
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.earth-orbit {
+  width: 450px;  /* Increased from 150px */
+  height: 450px;  /* Increased from 150px */
+  border-radius: 50%;
+  position: absolute;
+  animation: orbit 8s linear infinite;
+}
+
+/* Update earth size */
+.earth {
+  width: 60px;  /* Increased from 20px */
+  height: 60px;  /* Increased from 20px */
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: -30px;  /* Adjusted to match new size */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .login-box {
@@ -33,7 +73,8 @@
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 1;
+  z-index: 1;  /* Ensure login box is above the orbit */
+  margin-bottom: 60px;
 }
 
 h1 {
@@ -56,8 +97,9 @@ label {
   font-weight: 500;
 }
 
-input {
+.input-group input {
   width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
@@ -119,8 +161,33 @@ input:focus {
 }
 
 .submit-error {
-  margin-bottom: 16px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -60px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  background-color: rgba(255, 59, 48, 0.9);
+  color: white;
+  border-radius: 4px;
   text-align: center;
+  max-width: 400px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(255, 59, 48, 0.3);
+  animation: slideIn 0.3s ease-out;
+  font-size: 17.6px;
+  font-weight: 500;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .login-button:disabled {
@@ -132,9 +199,11 @@ input:focus {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .password-input input {
+  width: 100%;
   padding-right: 70px;
 }
 
